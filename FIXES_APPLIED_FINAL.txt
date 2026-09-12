@@ -1,0 +1,19 @@
+Refrigerator Repair - Final Static Fix Pass
+===========================================
+
+This package contains a source-level fix pass for the latest project archive.
+
+Applied fixes:
+1. EF migration now consistently uses the Services table name and has an explicit Migration attribute.
+2. Added explicit Entity Framework Core using to TechnicianRegister.
+3. Added explicit MVC using to Technician/Index.
+4. Services wizard now copies SelectedServiceId into Input.ServiceCatalogId before backend validation.
+5. OfferDispatchWorker now excludes already-offered technicians using a materialized ID list, avoiding navigation-collection LINQ translation issues.
+6. Development MockPay callback now sends status=OK and avoids duplicating authority in the default callback URL.
+7. Web output assembly is explicitly named RefrigeratorRepair, so the build output is RefrigeratorRepair.dll.
+
+Important:
+- This environment does not contain the .NET 8 SDK, so dotnet restore/build/test/ef could not be executed here.
+- After extracting this package on a machine with .NET 8 SDK, run: dotnet restore, dotnet build, then dotnet run --project src/Web/RefrigeratorRepair.Web.csproj.
+- For an existing database that was created with the old ServiceCatalogs table, do not assume the edited initial migration can rename it. Use a proper follow-up EF migration (or recreate the development database) before production deployment.
+- Production still requires a real MySQL connection string, ZarinPal MerchantId, HTTPS PublicBaseUrl, correct AllowedHosts, and private file storage configuration.

@@ -1,0 +1,23 @@
+RefrigeratorRepair project - fixes applied
+
+1. Fixed NU1603 package version mismatch:
+   Microsoft.Extensions.Configuration.Abstractions 8.0.0 -> 8.0.1
+
+2. Kept the solution on the .NET 8 / Microsoft.Extensions 8 / EF Core 8 package family.
+
+Validation:
+- All .csproj files parse as valid XML.
+- No remaining direct reference to Configuration.Abstractions 8.0.0.
+
+Note: The execution environment used to prepare this archive does not include the .NET SDK, so a real `dotnet restore/build` could not be executed here. Please run `dotnet restore` and `dotnet build` on a machine with .NET 8 SDK installed.
+
+2026-09-12 - Functional UI/Data Integration hardening
+- Homepage service cards now load from ServiceCatalog instead of a hard-coded list.
+- Customer order wizard now posts ServiceCatalogId, DeviceBrand, DeviceType, PreferredVisitDate and PreferredVisitWindow.
+- RepairRequest now has a real optional FK to ServiceCatalog plus indexes.
+- Server-side validation verifies that selected service is active; client JavaScript is not trusted.
+- MyOrders, Admin Requests, Admin Customer History and Technician order views display structured service/device/time data.
+- Added Contact page because it is a real public navigation destination.
+- Added idempotent Development schema upgrade for existing databases created by earlier EnsureCreated versions.
+- Removed the old behavior that embedded service/time metadata into ProblemDescription.
+- No new NuGet packages were added.
